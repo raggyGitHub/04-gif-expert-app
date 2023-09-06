@@ -7,14 +7,19 @@ export const GifExpertApp = () => {
     'Dragon Ball',
   ]);
 
-  const onAddCategory = () => {
-    setCategories([...categories, 'Demon Slayer']);
-    };
+  const onAddCategory = (newCategory) => {
+    setCategories([newCategory, ...categories]);
+    /**opcionalmente */
+
+    //setCategories(cat => [...cat,'Valorant']);
+  };
 
   return (
     <>
       <h1>GifExpertApp</h1>
-      <AddCategory setCategories={ setCategories} />
+      {/* <AddCategory onNewCategory={(event) => onAddCategory(event)} /> */}
+
+      <AddCategory onNewCategory={onAddCategory} />
       <button onClick={onAddCategory}>Agregar</button>
       <ol>
         {categories.map((category) => {
