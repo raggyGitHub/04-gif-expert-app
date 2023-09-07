@@ -1,37 +1,39 @@
 /* eslint-disable react/prop-types */
 
 
-import { useState } from 'react';
 import { useEffect } from 'react';
-import { getGifs } from '../helpers/getGifs';
+import { useState } from 'react';
 
-export const GifGrid = ( { category } ) =>
-{ 
+import { getGifs } from '../helpers/getGifs';
+import { GifItem } from './GifItem';
+
+export const GifGrid = ( { category } ) => { 
   const [images, setImages] = useState([]);
   
-  const getImages = async ({ category }) =>  { 
-    const newImages = await ( getGifs( category ) );
+  const getImages = async () =>  { 
+    const newImages = await getGifs( category ) ;
     setImages( newImages );
   }
    
   useEffect(() => {
-    getImages( category );
+    getImages();
+  
   }, [] );
   
   
   return (
     <>
       <h3>{ category }</h3>
-      <ol>
+      <div className="card-grid">
         {
-          images.map( ( {id,title} ) => (
-          <li key={ id }>
-            { title }
-          </li>
-        )
-        )
+          images.map( (image)=> (
+          <GifItem
+             key={ image.id }
+             { ...image }
+          />
+        ))
       }
-        </ol>
+      </div>
     </>
   );
 }
